@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: springboot-app
+    ports:
+      - "8080:8080"
+    environment:
+      # Local DB settings (will be overridden in Render with real values)
+      DATABASE_URL: jdbc:postgresql://db:5432/mydb
+      DATABASE_USERNAME: myuser
+      DATABASE_PASSWORD: mypassword
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

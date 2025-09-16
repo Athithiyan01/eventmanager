@@ -1,7 +1,9 @@
 services:
   - type: web
     name: event-management-system
-    plan: free   # change if you want more resources
+    plan: free   # upgrade if you need more resources
+    runtime: java
+    env: java17   # or java21 if your project uses Java 21
     buildCommand: "./mvnw clean package -DskipTests"
     startCommand: "java -jar target/*.jar"
     envVars:
