@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: event-management-system
+    env: java
+    plan: free   # change to 'starter' or 'standard' if needed
+    buildCommand: "./mvnw clean package -DskipTests"
+    startCommand: "java -jar target/*.jar"
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: eventdb
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: eventdb
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: eventdb
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SERVER_PORT
+        value: 8080
+
+databases:
+  - name: eventdb
+    plan: free
+    databaseName: eventdb
+    user: eventuser
