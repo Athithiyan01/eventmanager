@@ -2,7 +2,6 @@ services:
   - type: web
     name: event-management-system
     plan: free   # change if you want more resources
-    runtime: image
     buildCommand: "./mvnw clean package -DskipTests"
     startCommand: "java -jar target/*.jar"
     envVars:
